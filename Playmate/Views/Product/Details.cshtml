@@ -1,0 +1,63 @@
+﻿@model Playmate.Models.ViewModels.UserProfileViewModel
+@{
+    Layout = null;
+    var product = Model.Products.FirstOrDefault(); 
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ürün Detayı</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="@Url.Content("~/website/style.css")">
+</head>
+<body class="profile">
+
+    <section id="header">
+        <a href="#"><img src="@Url.Content("~/wwwroot/image/logo.png")" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Basket")">Shop</a></li>
+                <li><a class="active" href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
+                <li id="lg-bag"><a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    @if (product != null)
+    {
+        <div class="product-details-wrapper">
+            <div class="product-image-section">
+                <img src="@(string.IsNullOrEmpty(product.ProductImage)
+                    ? Url.Content("~/wwwroot/images/default.png")
+                    : Url.Content("~/wwwroot/" + product.ProductImage))"
+                     alt="@product.ProductName"
+                     class="product-image"
+                     style="max-width: 100%; height: auto;" />
+            </div>
+            <div class="product-info-section">
+                <h2 class="product-title">@product.ProductName</h2>
+                <p class="section-label">Açıklama:</p>
+                <p class="product-description">@product.Description</p>
+
+                <p class="section-label">Kategori: <span class="product-category">@product.Category.CategoryName</span></p>
+                <p class="section-label">Bağışlayan: <span class="donor-name">@product.User.FullName</span></p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="no-products-message">
+            Ürün bilgisi bulunamadı.
+        </div>
+    }
+</body>
+</html>

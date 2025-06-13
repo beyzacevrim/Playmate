@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - E-Commerce</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="@Url.Content("~/website/style.css")">
+</head>
+<body class="basket-body">
+
+    <section id="header">
+        <a href="#"><img src="@Url.Content("~/wwwroot/image/logo.png")" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Shop")">Shop</a></li>
+                <li><a href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a href="@Url.Action("About", "Home")">About</a></li>
+                <li><a href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
+                <li id="lg-bag"><a class="active"  href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <div class="page-wrapper">
+        <div class="shopping-cart-container">
+            <div class="cart-header">
+                <h2>Sepetim</h2>
+                <a href="#" class="remove-all">Remove all</a>
+            </div>
+
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="~/wwwroot/image/n1.jpg" alt="Oyuncak Toplar" class="item-image">
+                    <div class="item-details">
+                        <h3>Oyuncak Toplar</h3>
+                    </div>                 
+                    <div class="item-price-actions">
+                        <a href="#" class="action-link save-for-later">Favoriye Ekle</a>
+                        <a href="#" class="action-link remove">Kaldır</a>
+                    </div>
+                </div>
+                <div class="cart-item">
+                    <img src="~/wwwroot/image/n2.jpg" alt="Oyuncak Araba" class="item-image">
+                    <div class="item-details">
+                        <h3>Oyuncak Araba</h3>
+                    </div>
+                    <div class="item-price-actions">
+                        <a href="#" class="action-link save-for-later">Favoriye Ekle</a>
+                        <a href="#" class="action-link remove">Kaldır</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="subtotal-info">
+                    <span class="subtotal-label">Toplam 2 ürün</span>
+                </div>
+                <button class="checkout-button">İşlemi Tamamla</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/website/script.js"></script>
+</body>
+</html>
+

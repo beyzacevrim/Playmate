@@ -1,21 +1,21 @@
-﻿@{
+﻿@model IEnumerable<Playmate.Models.Classes.Product>
+
+@{
     Layout = null;
+    var newArrivals = ViewBag.NewArrivals as IEnumerable<Playmate.Models.Classes.Product>;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @Html.AntiForgeryToken()
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e-commerce website</title>
 
-    <!-- font-awesome cdn link -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-
-    <!-- custom css file link -->
     <link rel="stylesheet" href="@Url.Content("~/website/style.css")">
-
 </head>
 <body>
 
@@ -23,12 +23,12 @@
         <a href="#"><img src="@Url.Content("~/wwwroot/image/logo.png")" class="logo" alt=""></a>
         <div>
             <ul id="navbar">
-                <li><a class="active" href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                <li><a class="active" href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Shop")">Shop</a></li>
+                <li><a href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a href="@Url.Action("About", "Home")">About</a></li>
+                <li><a href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
+                <li id="lg-bag"><a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
                 <a href="#" id="close"><i class="far fa-times"></i></a>
             </ul>
         </div>
@@ -67,78 +67,27 @@
     <section id="product1" class="section-p1">
         <h2>Öne Çıkan Ürünler</h2>
         <div class="pro-container">
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n11.png")" alt="">
-                <div class="des">
-                    <span>Meryem</span>
-                    <h5>Oyuncak Uçak</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n12.png")" alt="">
-                <div class="des">
-                    <span>Ahmet</span>
-                    <h5>Oyuncak Peluş İnek</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n13.png")" alt="">
-                <div class="des">
-                    <span>Muhammet</span>
-                    <h5>Vagonlu Tren</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n14.png")" alt="">
-                <div class="des">
-                    <span>Sıla</span>
-                    <h5>Oyuncak Robot</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n15.png")" alt="">
-                <div class="des">
-                    <span>Beyza</span>
-                    <h5>Plaj Oyuncağı</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n16.png")" alt="">
-                <div class="des">
-                    <span>Onur</span>
-                    <h5>Oyuncak Kasa</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n17.png")" alt="">
-                <div class="des">
-                    <span>Selin</span>
-                    <h5>Oyuncak Ksilofon</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n18.png")" alt="">
-                <div class="des">
-                    <span>Kerim</span>
-                    <h5>Sallanan Oyuncak At</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var product in Model)
+                {
+                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" style="text-decoration:none; color:inherit;">
+                        <div class="pro">
+                            <img src="@Url.Content("~/wwwroot/" + product.ProductImage)" alt="@product.ProductName" />
+                            <div class="des">
+                                <span>@(product.User?.FullName ?? "Bağışçı")</span>
+                                <h5>@product.ProductName</h5>
+                                <h4>Bağış</h4>
+                            </div>
+                            <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <p>Gösterilecek öne çıkan ürün bulunamadı.</p>
+            }
         </div>
     </section>
 
@@ -151,120 +100,77 @@
     <section id="product1" class="section-p1">
         <h2>Yeni Gelenler</h2>
         <div class="pro-container">
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n1.jpg")" alt="">
-                <div class="des">
-                    <span>Sena</span>
-                    <h5>Oyuncak Toplar</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n2.jpg")" alt="">
-                <div class="des">
-                    <span>Furkan</span>
-                    <h5>Oyuncak Taksi</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n3.jpg")" alt="">
-                <div class="des">
-                    <span>Nur</span>
-                    <h5>Oyuncak Helikopter</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n4.jpg")" alt="">
-                <div class="des">
-                    <span>Kerim</span>
-                    <h5>Oyuncak Peluş Fil</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n5.jpg")" alt="">
-                <div class="des">
-                    <span>Sena</span>
-                    <h5>Oyuncak Peluş Domuz</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n6.jpg")" alt="">
-                <div class="des">
-                    <span>Nehir</span>
-                    <h5>Vagonlu Tren Seti</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n7.jpg")" alt="">
-                <div class="des">
-                    <span>Hüseyin</span>
-                    <h5>Oyuncak Tren</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="@Url.Content("~/wwwroot/image/n8.jpg")" alt="">
-                <div class="des">
-                    <span>Berk</span>
-                    <h5>Oyuncak Gemi</h5>
-                    <h4>Bağış</h4>
-                </div>
-                <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
-            </div>
+            @if (newArrivals != null && newArrivals.Any())
+            {
+                foreach (var product in newArrivals) 
+                {
+                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" style="text-decoration:none; color:inherit;">
+                        <div class="pro" data-product-id="@product.ProductId">
+                            <img src="@Url.Content("~/wwwroot/" + product.ProductImage)" alt="@product.ProductName">
+                            <div class="des">
+                                <span>@(product.User?.FullName ?? "Bağışçı")</span>
+                                <h5>@product.ProductName</h5>
+                                <h4>Bağış</h4>
+                            </div>
+                            <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
+                            <a href="#" class="toggle-favorite">
+                                <i class="far fa-heart heart-icon"></i>
+                            </a>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <p>Yeni gelen ürün bulunamadı.</p>
+            }
         </div>
     </section>
 
-        <footer class="section-p1">
-            <div class="col">
-                <img class="logo" src="@Url.Content("~/wwwroot//image/logo.png")" alt="">
-                <h4>İletişim</h4>
-                <p><strong>Address:</strong> Türkiye, Zonguldak - 67000 </p>
-                <p><strong>Phone:</strong> 0536 225 36 34</p>
-                <div class="follow">
-                    <h4>Bizi Takip Edin</h4>
-                    <div class="icon">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-pinterest-p"></i>
-                        <i class="fab fa-youtube"></i>
-                    </div>
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="@Url.Content("~/wwwroot/image/logo.png")" alt="">
+            <h4>İletişim</h4>
+            <p><strong>Adres:</strong> Türkiye, Zonguldak - 67000 </p>
+            <p><strong>Telefon:</strong> 0536 225 36 34</p>
+            <div class="follow">
+                <h4>Bizi Takip Edin</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
                 </div>
             </div>
-            <div class="col">
-                <h4>Hakkında</h4>
-                <a href="#">Hakkımızda</a>
-                <a href="#">Teslimat Bilgileri</a>
-                <a href="#">Gizlilik Politikası</a>
-                <a href="#">Şartlar ve Koşullar</a>
-                <a href="#">Bize Ulaşın</a>
-            </div>
-            <div class="col">
-                <h4>Hesabım</h4>
-                <a href="#">Oturum Aç</a>
-                <a href="#">Sepeti Görüntüle</a>
-                <a href="#">Favorilerim</a>
-                <a href="#">Bağışmı Takip Et</a>
-                <a href="#">Yardım</a>
-            </div>
-            <div class="copyright">
-                <p>Tüm Hakları Saklıdır | &#169; 2023</p>
-            </div>
-        </footer>
+        </div>
+        <div class="col">
+            <h4>Hakkında</h4>
+            <a href="#">Hakkımızda</a>
+            <a href="#">Teslimat Bilgileri</a>
+            <a href="#">Gizlilik Politikası</a>
+            <a href="#">Şartlar ve Koşullar</a>
+            <a href="#">Bize Ulaşın</a>
+        </div>
+        <div class="col">
+            <h4>Hesabım</h4>
+            <a href="#">Oturum Aç</a>
+            <a href="#">Sepeti Görüntüle</a>
+            <a href="#">Favorilerim</a>
+            <a href="#">Bağışımı Takip Et</a>
+            <a href="#">Yardım</a>
+        </div>
+        <div class="copyright">
+            <p>Tüm Hakları Saklıdır | &#169; 2023</p>
+        </div>
+    </footer>
 
-        <!-- javascript script file link -->
-        <script src="@Url.Content("~/website/script.js")"></script>
+    <script>
+    const addFavoriteUrl = '@Url.Action("AddFavorite", "Favoriler")';
+    const removeFavoriteUrl = '@Url.Action("RemoveFavorite", "Favoriler")';
+    const requestVerificationToken = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+    const initialFavoritedProductIds = @Html.Raw(Json.Encode(ViewBag.FavoritedProductIds ?? new List < int > ()));
+    </script>
+    <script src="@Url.Content("~/website/script.js")"></script>
 </body>
 </html>
