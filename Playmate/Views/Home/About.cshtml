@@ -1,9 +1,91 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Index";
+    Layout = null;
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - E-Commerce</title>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="@Url.Content("~/website/style.css")">
+
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="#"><img src="@Url.Content("~/wwwroot/image/logo.png")" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Shop")">Shop</a></li>
+                <li><a href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a class="active" href="@Url.Action("Index", "Home")">About</a></li>
+                <li><a  href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
+                <li id="lg-bag"><a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+
+    <main class="about-page-content">
+        <section class="hero-about">
+            <h1>Biz Kimiz?</h1>
+            <p>Her çocuğun gülümsemeye hakkı var. Oyun Arkadaşım olarak, bu gülümsemeleri gerçeğe dönüştürmek için buradayız.</p>
+        </section>
+
+        <section class="section-vision">
+            <h2>Vizyonumuz</h2>
+            <div class="vision-content">
+                <p>Oyun Arkadaşım, kullanılmayan oyuncakların çocuklara yeni bir hayat, yeni bir umut ve neşe taşımasını sağlamak amacıyla kurulmuş bir platformdur. Amacımız, ihtiyaç sahibi çocuklarla bağışçıları bir araya getirerek, her çocuğun oyun oynamanın ve öğrenmenin keyfini çıkarabileceği bir dünya yaratmaktır.</p>
+                <p>Oyun, çocuk gelişimi için hayati bir unsurdur. Ne yazık ki, her çocuk bu temel hakka sahip değil. Biz, oyuncakların basit bir eşya olmaktan öte, hayal gücünü besleyen, sosyal becerileri geliştiren ve çocukluk anıları oluşturan sihirli araçlar olduğuna inanıyoruz.</p>
+            </div>
+        </section>
+
+        <section class="section-mission">
+            <h2>Misyonumuz</h2>
+            <div class="mission-item">
+                <i class="fas fa-gift"></i>
+                <h3>Oyuncakları Hayata Döndürmek</h3>
+                <p>Evinizde atıl durumda duran veya artık kullanılmayan oyuncakları topluyor, özenle kontrol ediyor ve onları yeni maceralara hazır hale getiriyoruz. Her bağışlanan oyuncak, bir çocuğun yüzünde taptaze bir gülümseme oluşturur.</p>
+            </div>
+            <div class="mission-item">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Sevgiyle Köprüler Kurmak</h3>
+                <p>Bağışçılarımız ve ihtiyaç sahibi çocuklar arasında güvenli ve şeffaf bir köprü kuruyoruz. Bağış sürecini kolaylaştırarak, iyilik yapmanın ne kadar basit olabileceğini gösteriyoruz.</p>
+            </div>
+            <div class="mission-item">
+                <i class="fas fa-child"></i>
+                <h3>Geleceğe Yatırım Yapmak</h3>
+                <p>Oyuncak bağışlamak, sadece bir eşya vermek değil, bir çocuğun gelişimine, hayal gücüne ve geleceğine yapılan bir yatırımdır. Biz, bu yatırımların en verimli şekilde ulaşmasını sağlıyoruz.</p>
+            </div>
+        </section>
+
+        <section class="section-call-to-action">
+            <h2>Bize Katılın!</h2>
+            <p>Siz de bir çocuğun hayatına dokunmak ister misiniz?</p>
+            <a href="products.html" class="btn-donate">Hemen Oyuncak Bağışla</a>
+            <a href="contact.html" class="btn-contact">Bize Ulaşın</a>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2023 Playmate. Tüm Hakları Saklıdır.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>

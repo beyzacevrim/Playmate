@@ -1,0 +1,201 @@
+﻿@model Playmate.Models.ViewModels.UserProfileViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="@Url.Content("~/website/style.css")">
+</head>
+<body class="profile">
+
+    <section id="header">
+        <a href="#"><img src="@Url.Content("~/wwwroot/image/logo.png")" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Basket")">Shop</a></li>
+                <li><a class="active" href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
+                <li id="lg-bag"><a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <div class="app-container-profile">
+        <div class="card user-menu-card-profile">
+            <div class="user-info-header-profile">
+                <img src="@Url.Content("~/wwwroot/image/user.png")" alt="User Profile" class="user-avatar">
+                <div class="user-details">
+                    <div class="user-name">@ViewBag.FullName</div>
+                    <div class="user-email">@ViewBag.Email</div>
+                </div>
+            </div>
+            <ul class="menu-list-profile">
+                <li><a href="#" class="menu-item" id="myProfileLink"><i class="fas fa-user"></i> Benim Profilim <i class="fas fa-chevron-right"></i></a></li>
+                <li><a href="#" class="menu-item" id="settingsLink"><i class="fas fa-cog"></i> Ayarlar <i class="fas fa-chevron-right"></i></a></li>
+                <li class="has-submenu">
+                    <a href="#" class="menu-item"><i class="fas fa-bell"></i> Bildirimler <i class="fas fa-chevron-right"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#" class="submenu-item">İzin Ver</a></li>
+                        <li><a href="#" class="submenu-item">Sessiz</a></li>
+                    </ul>
+                </li>
+                <li><a href="@Url.Action("LogOut", "LogIn")" class="menu-item"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a></li>
+            </ul>
+            <a href="@Url.Action("AddProduct", "Product")" class="add-product-btn"><i class="fas fa-plus-circle"></i> Ürün Ekle</a>
+        </div>
+
+        <div class="card profile-edit-card" id="profileEditCard">
+            <div class="card-header">
+                <div class="user-info-header-small">
+                    <img src="@Url.Content("~/wwwroot/image/user.png")" alt="User Profile" class="user-avatar-small">
+                    <div class="user-details-small">
+                        <div class="user-name-small">@ViewBag.FullName</div>
+                        <div class="user-email-small">@ViewBag.Email</div>
+                    </div>
+                </div>
+                <button class="close-btn" id="closeProfileEditCard">&times;</button>
+            </div>
+            <form class="profile-form">
+                <div class="form-group">
+                    <label for="name">Ad</label>
+                    <input type="text" id="name" value="@ViewBag.FullName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-posta Hesabı</label>
+                    <input type="email" id="email" value="@ViewBag.Email" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Şifre</label>
+                    <input type="password" id="mobile" value="@ViewBag.Password" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="profileImage">Profil Fotoğrafı</label>
+                    <img id="profileImage" src="@Url.Content("~/wwwroot/" + ViewBag.ProfileImage)" alt="Profil Resmi" class="profile-img-display" />
+                </div>
+                <button type="submit" class="save-changes-btn">Değişiklikleri Kaydet</button>
+            </form>
+        </div>
+
+        <div class="card settings-menu-card" id="settingsCard">
+            <div class="card-header">
+                <h2>Ayarlar</h2>
+                <button class="close-btn" id="closeSettingsCard">&times;</button>
+            </div>
+            <ul class="settings-list">
+                <li>
+                    <span>Tema</span>
+                    <select>
+                        <option value="light">Açık</option>
+                        <option value="dark">Koyu</option>
+                    </select>
+                </li>
+                <li>
+                    <span>Dil</span>
+                    <select>
+                        <option value="eng">İngilizce</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="section-p1 products-list-container">
+        <h3>Eklediğim Ürünler</h3>
+        @if (Model.Products != null && Model.Products.Any())
+        {
+            <div class="product-grid">
+                @foreach (var product in Model.Products)
+                {
+                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="product-item">
+                        <img src="@(product.ProductImage ?? Url.Content("~/wwwroot/images/default.png"))" alt="@product.ProductName">
+                        <div class="product-info">
+                            <h4>@product.ProductName</h4>
+                            <p>@product.Description</p>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-products-message">
+                Henüz hiçbir ürün eklemediniz.
+            </div>
+        }
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="@Url.Content("~/wwwroot/image/logo.png")" alt="">
+            <h4>İletişim</h4>
+            <p><strong>Adres:</strong> Zonguldak Bülent Ecevit Üniversitesi</p>
+            <p><strong>Telefon:</strong> +90 555 555 55 55</p>
+            <p><strong>Email:</strong> destek@example.com</p>
+        </div>
+        <div class="col">
+            <h4>Hakkımızda</h4>
+            <a href="#">Hakkımızda</a>
+            <a href="#">Gizlilik Politikası</a>
+            <a href="#">Kullanım Şartları</a>
+            <a href="#">İletişim</a>
+        </div>
+    </footer>
+
+    <script src="@Url.Content("~/website/script.js")"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const myProfileLink = document.getElementById('myProfileLink');
+            const settingsLink = document.getElementById('settingsLink');
+            const profileEditCard = document.getElementById('profileEditCard');
+            const settingsCard = document.getElementById('settingsCard');
+            const closeProfileEditCardBtn = document.getElementById('closeProfileEditCard');
+            const closeSettingsCardBtn = document.getElementById('closeSettingsCard');
+
+            function hideAllCards() {
+                profileEditCard.classList.remove('active');
+                settingsCard.classList.remove('active');
+            }
+
+            if (myProfileLink) {
+                myProfileLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    hideAllCards();
+                    profileEditCard.classList.add('active');
+                });
+            }
+
+            if (settingsLink) {
+                settingsLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    hideAllCards();
+                    settingsCard.classList.add('active');
+                });
+            }
+
+            if (closeProfileEditCardBtn) {
+                closeProfileEditCardBtn.addEventListener('click', function () {
+                    profileEditCard.classList.remove('active');
+                });
+            }
+
+            if (closeSettingsCardBtn) {
+                closeSettingsCardBtn.addEventListener('click', function () {
+                    settingsCard.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

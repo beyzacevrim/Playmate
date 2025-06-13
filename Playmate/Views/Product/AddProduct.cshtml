@@ -1,0 +1,81 @@
+﻿@model Playmate.Models.Classes.Product
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - E-Commerce</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="@Url.Content("~/website/style.css")" />
+</head>
+<body>
+
+    <section id="header">
+        <a href="#"><img src="@Url.Content("~/wwwroot/image/logo.png")" class="logo" alt="Logo" /></a> 
+        <div>
+            <ul id="navbar">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Basket")">Shop</a></li>
+                <li><a href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a href="#">About</a></li>
+                <li><a class="active" href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
+                <li id="lg-bag"><a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="#"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <div class="add-product-container">
+        <h2>Yeni Ürün Ekle</h2>
+
+        @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(false, "", new { @class = "validation-summary-errors" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProductName, "Ürün Adı")
+                @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", placeholder = "Ürün adını giriniz..." })
+                @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "field-validation-error" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, "Açıklama")
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Ürün açıklaması giriniz..." })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "field-validation-error" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CategoryId, "Kategori")
+                @Html.DropDownListFor(m => m.CategoryId, ViewBag.Categories as SelectList, "Kategori Seçiniz", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "field-validation-error" })
+            </div>
+
+            <div class="form-group">
+                <label for="productImageFile">Ürün Görseli</label>
+                <input type="file" name="productImageFile" id="productImageFile" class="form-control" accept="image/*" />
+            </div>
+
+            <button type="submit" class="btn-submit">Ürünü Ekle</button>
+        }
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script src="@Url.Content("~/website/script.js")"></script>
+</body>
+</html>
