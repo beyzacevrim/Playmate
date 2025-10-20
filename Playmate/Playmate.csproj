@@ -133,6 +133,7 @@
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\SiginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -291,6 +292,7 @@
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Sigin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

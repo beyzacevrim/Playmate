@@ -1,13 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Signup";
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Profil</title>
+    <title>Kayıt Ol</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="@Url.Content("~/website/style.css")">
 </head>
@@ -19,7 +19,7 @@
             <ul id="navbar">
                 <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                 <li><a href="shop.html">Shop</a></li>
-                <li><a class="active" href="@Url.Action("Index", "User")">Profil</a></li>
+                <li><a href="@Url.Action("Index", "User")">Profil</a></li>
                 <li><a href="@Url.Action("About", "Home")">About</a></li>
                 <li><a href="@Url.Action("Index", "Favoriler")">Favoriler</a></li>
                 <li id="lg-bag"><a href="@Url.Action("Index", "Basket")"><i class="far fa-shopping-bag"></i></a></li>
@@ -35,8 +35,8 @@
     <div class="login">
         <div class="container">
             <div class="login-section">
-                <h2 class="title">Giriş Yap</h2>
-                <p class="subtitle">Tekrar hoş geldiniz! Lütfen bilgilerinizi girin.</p>
+                <h2 class="title">Kayıt Ol</h2>
+                <p class="subtitle">Yeni bir hesap oluşturmak için bilgilerinizi girin.</p>
 
                 @if (ViewBag.Error != null)
                 {
@@ -45,7 +45,11 @@
                     </div>
                 }
 
-                <form class="login-form" action="@Url.Action("Index", "LogIn")" method="post">
+                <form class="login-form" action="@Url.Action("Index", "Sigin")" method="post">
+                    <div class="input-group">
+                        <label for="fullname">Ad Soyad</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Adınızı ve soyadınızı girin">
+                    </div>
                     <div class="input-group">
                         <label for="email">E-posta</label>
                         <input type="email" id="email" name="email" placeholder="E-posta adresinizi girin">
@@ -53,21 +57,25 @@
                     <div class="input-group">
                         <label for="password">Şifre</label>
                         <div class="password-input-wrapper">
-                            <input type="password" id="password" name="password" placeholder="Şifrenizi girin">
+                            <input type="password" id="password" name="password" placeholder="Şifre oluşturun">
                             <i class="fas fa-eye"></i>
                         </div>
                     </div>
-                    <a href="#" class="forgot-password">Şifrenizi mi unuttunuz?</a>
-                    <button type="submit" class="login-button">Giriş Yap</button>
-                </form>
+                    <div class="input-group">
+                        <label for="confirm">Şifre Tekrarı</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="confirm" name="confirm" placeholder="Şifrenizi tekrar girin">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
 
-                <p class="signup-text">Hesabınız yok mu? <a href="@Url.Action("Index", "Sigin")" class="signup-link">Kaydolun</a></p>
-            </div>
-            <div class="image-section">
+                </form>
+                <a href="@Url.Action("Index", "Sigin")" class="login-button">Kaydol</a>
+                <p class="signup-text">Zaten bir hesabınız var mı? <a href="@Url.Action("Index", "LogIn")" class="signup-link">Giriş Yap</a></p>
             </div>
         </div>
     </div>
-    </div>
+
     <script src="@Url.Content("~/website/script.js")"></script>
 </body>
 </html>
